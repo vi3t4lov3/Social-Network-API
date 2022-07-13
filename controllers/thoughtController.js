@@ -50,6 +50,20 @@ updateThought(req, res) {
 
     }).catch((err) => res.status(500).json(err));
 },
+// delete thought by id
+deleteThought(req, res) {
+    Thought.findOneAndDelete({_id: req.params.id})
+    .then((thought) => {
+        if(!thought){
+            res.status(404).json({message: 'No thought with that ID'}) 
+        }      
+        return User.findOneAndUpdate(
+            {_id:req.body.userID},
+            {$pull:{thoughts:thought._id}},
+            {new:true}
+        )
+    }).then(() => res.json({message: 'thought had been deleted! & remove from the user'})).catch((err) => res.status(500).json(err));
+},
 }
 
 module.exports = thoughtController;
