@@ -1,5 +1,6 @@
 # Social Network API
 Repo: https://github.com/vi3t4lov3/Social-Network-API
+Video: https://youtu.be/LmSDrcSg9d0
 ## Description
 MongoDB is a popular choice for many social networks due to its speed with large amounts of data and flexibility with unstructured data. Over the last part of this course, you’ll use several of the technologies that social networking platforms use in their full-stack applications. Because the foundation of these applications is data, it’s important that you understand how to build and structure the API first.
 
@@ -66,7 +67,7 @@ NO TEST THIS TIME
 
 ## VIDEO DEMO
 
-[Click here] () 
+[Click here] (https://youtu.be/LmSDrcSg9d0) 
 ## Questions
 
 If you have questions about this repository reach me by Github: [vi3t4lov3](https://github.com/vi3t4lov3)

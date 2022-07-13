@@ -44,7 +44,7 @@ const userController = {
                 $in: user.thoughts
             }
         }))
-        .then(() => res.json({ message: 'User and associated apps deleted!' }))
+        .then(() => res.json({ message: 'User had been deleted!' }))
         .catch((err) => res.status(500).json(err));
     },
 
