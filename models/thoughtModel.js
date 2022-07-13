@@ -1,38 +1,50 @@
-const mongoose = require ('mongoose');
-const dateFormat = require("../utils/dateFormat");
+const { Schema, model } = require("mongoose");
+const reactionSchema = require("./reactionModel");
 
-const thoughtSchema = mongoose.Schema(
-    {
-        thoughtText: {
-            type: 'string',
-            required: true,
-            maxLength:280,
-        },
-        username: {
-            type: 'string',
-            required: true,
-        },
-        reaction: {
-            type: Schema.Types.ObjectId,
-            ref: "reactionModel"
-        }
+// Schema to create Thought model
+const thoughtSchema = new Schema(
+  {
+    thoughtText: {
+      type: String,
+      required: true,
+      max_length: 200,
     },
-    {
-        timestamps: true,
-        get: (dateStr) => dateFormat(dateStr),
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+      get: formatDate,
     },
-    {
-        toJSON: {
-          virtuals: true,
-          getters: true,
-        },
-        id: false,
-    }
-)
-//   Create a virtual called `reactionCount` that retrieves the length of the thought's `reactions` array field on query.
-  
-thoughtSchema.virtual("reactionCount").get(function () {
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions: [reactionSchema],
+  },
+  {
+    toJSON: {
+      getters: true,
+      virtuals: true,
+    },
+  }
+);
+
+thoughtSchema
+  .virtual("reactionCount")
+  // Getter
+  .get(function () {
     return this.reactions.length;
   });
 
-module.exports = thoughtSchema;
+function formatDate(date) {
+  const stringDate = date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return stringDate;
+}
+
+const Thought = model("thought", thoughtSchema);
+
+module.exports = Thought;
